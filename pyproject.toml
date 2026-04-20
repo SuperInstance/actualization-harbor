@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "actualization-harbor"
+version = "0.1.0"
+description = "Agent-agnostic training harbor — detect model, adapt flow state, any agent can dock"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [{name = "Oracle1", email = "oracle1@cocapn.ai"}]
+keywords = ["actualization", "harbor", "agent-training", "cocapn", "adaptive"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+]
+
+[project.urls]
+Homepage = "https://github.com/SuperInstance/actualization-harbor"

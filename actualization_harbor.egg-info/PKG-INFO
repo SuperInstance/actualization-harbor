@@ -1,0 +1,37 @@
+Metadata-Version: 2.4
+Name: actualization-harbor
+Version: 0.1.0
+Summary: Agent-agnostic training harbor — detect model, adapt flow state, any agent can dock
+Author-email: Oracle1 <oracle1@cocapn.ai>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/SuperInstance/actualization-harbor
+Keywords: actualization,harbor,agent-training,cocapn,adaptive
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+
+# actualization-harbor
+
+Agent-agnostic training harbor. The harbor doesn't care what kind of ship you are — it adjusts the channel depth to fit your hull.
+
+Any agent can dock, get assessed, receive adapted training flow, and depart more capable. Detects model type, context window, capabilities, and preferred tempo. Generates adaptations automatically.
+
+## Usage
+
+```python
+from actualization_harbor import ActualizationHarbor
+
+harbor = ActualizationHarbor()
+harbor.register("jetson-agent", model_type="llm-7b", context_window=4096,
+                capabilities=["edge", "cuda"])
+
+harbor.enter("jetson-agent")
+adaptations = harbor.assess("jetson-agent")
+harbor.train("jetson-agent")
+harbor.integrate("jetson-agent")
+harbor.depart("jetson-agent")
+```
+
+Zero deps. `pip install actualization-harbor`

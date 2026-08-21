@@ -1,37 +1,71 @@
 Metadata-Version: 2.4
 Name: actualization-harbor
-Version: 0.1.0
-Summary: Agent-agnostic training harbor — detect model, adapt flow state, any agent can dock
+Version: 0.2.0
+Summary: A safe harbor for agent goal actualization — planning, execution, and reflection
 Author-email: Oracle1 <oracle1@cocapn.ai>
 License-Expression: MIT
-Project-URL: Homepage, https://github.com/SuperInstance/actualization-harbor
-Keywords: actualization,harbor,agent-training,cocapn,adaptive
-Classifier: Development Status :: 3 - Alpha
+Keywords: actualization,harbor,agent,planning,execution,reflection,goals
+Classifier: Development Status :: 4 - Beta
 Classifier: Intended Audience :: Developers
 Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
 Requires-Python: >=3.10
 Description-Content-Type: text/markdown
+License-File: LICENSE
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0; extra == "dev"
+Dynamic: license-file
 
 # actualization-harbor
 
-Agent-agnostic training harbor. The harbor doesn't care what kind of ship you are — it adjusts the channel depth to fit your hull.
+**A safe harbor for agent goal actualization** — planning, execution, and reflection. Pure Python, zero dependencies.
 
-Any agent can dock, get assessed, receive adapted training flow, and depart more capable. Detects model type, context window, capabilities, and preferred tempo. Generates adaptations automatically.
+## What This Gives You
 
-## Usage
+- **Goal management** — define goals with milestones, track progress, decompose into sub-goals
+- **Planning** — create plans with ordered steps and dependency graphs (DAG)
+- **Execution** — run plans with automatic retry, dependency resolution, and failure handling
+- **Reflection** — analyze outcomes, compute scores, extract lessons by category/severity
+- **Agent profiles** — registration and adaptation for backward compatibility
+
+## Installation
+
+```bash
+pip install actualization-harbor
+```
+
+## Quick Start
 
 ```python
 from actualization_harbor import ActualizationHarbor
 
 harbor = ActualizationHarbor()
-harbor.register("jetson-agent", model_type="llm-7b", context_window=4096,
-                capabilities=["edge", "cuda"])
 
-harbor.enter("jetson-agent")
-adaptations = harbor.assess("jetson-agent")
-harbor.train("jetson-agent")
-harbor.integrate("jetson-agent")
-harbor.depart("jetson-agent")
+goal = harbor.create_goal("Deploy to production", priority=5)
+goal.add_milestone("All tests pass", target_value=1.0)
+goal.add_milestone("Staging validated", target_value=1.0)
+
+plan = harbor.create_plan("Deploy plan", goal_id=goal.goal_id)
+s1 = plan.add_step("Run test suite", estimated_duration=60.0)
+s2 = plan.add_step("Build Docker image", depends_on=[s1.step_id])
+s3 = plan.add_step("Push to staging", depends_on=[s2.step_id])
+plan.finalize()
+
+result = harbor.execute(plan)
+print(f"Success: {result.success}, {result.steps_completed}/{len(plan.steps)} steps")
 ```
 
-Zero deps. `pip install actualization-harbor`
+## Testing
+
+```bash
+pip install -e .
+pytest
+```
+
+## How It Fits
+
+Goal execution layer for the SuperInstance agent fleet. Works with `plato-training` rooms and `a2a-protocol` for multi-agent coordination.
+
+## License
+
+MIT

@@ -2,6 +2,10 @@
 
 **A safe harbor for agent goal actualization** — planning, execution, and reflection. Pure Python, zero dependencies.
 
+<p align="center">
+  <img src="assets/images/hero-harbor.jpg" width="680" alt="A chart-room lamp throwing amber light on a hand-drawn course line to safe anchorage — the plan, already underway in the dark">
+</p>
+
 ## What This Gives You
 
 - **Goal management** — define goals with milestones, track progress, decompose into sub-goals
